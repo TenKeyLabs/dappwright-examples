@@ -1,0 +1,8 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./tests/multiple-files", // This must be specified if "paths" is.
+    "paths": {
+      "helpers/*": ["helpers/*"] // This mapping is relative to "baseUrl".
+    }
+  }
+}

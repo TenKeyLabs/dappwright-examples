@@ -1,0 +1,25 @@
+{
+  "name": "vite-project",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview",
+    "//": "Metamask locks chainIDs on port 8545 https://hardhat.org/hardhat-network/docs/metamask-issue",
+    "chain": "hardhat node --port 8546",
+    "test:single-test": "yarn build && playwright test -c tests/single-test/playwright.config.ts tests/single-test",
+    "test:multiple-files": "yarn build && playwright test -c tests/multiple-files/playwright.config.ts tests/multiple-files"
+  },
+  "dependencies": {
+    "ethers": "^6.0.8"
+  },
+  "devDependencies": {
+    "@playwright/test": "1.30.0",
+    "@tenkeylabs/dappwright": "^2.2.5",
+    "hardhat": "^2.13.0",
+    "typescript": "^4.9.3",
+    "vite": "^4.1.0"
+  }
+}
