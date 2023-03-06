@@ -14,6 +14,7 @@ export const test = baseTest.extend<{
         wallet: "metamask",
         version: MetaMaskWallet.recommendedVersion,
         seed: "test test test test test test test test test test test junk", // Hardhat's default https://hardhat.org/hardhat-network/docs/reference#accounts
+        headless: false,
       });
 
       // Add Hardhat as a custom network
@@ -28,7 +29,6 @@ export const test = baseTest.extend<{
     }
 
     await use(sharedContext);
-    await sharedContext.close();
   },
 
   wallet: async ({ context }, use) => {

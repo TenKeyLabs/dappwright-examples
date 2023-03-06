@@ -21,13 +21,15 @@ export async function init() {
   const callContractButton = document.querySelector("#call-contract-button")!;
 
   const connectStatus = document.querySelector<HTMLInputElement>("#connect-status")!;
-  const networkSwitchStatus = document.querySelector<HTMLInputElement>("#network-switch-status")!;
+  const networkSwitchStatus = document.querySelector<HTMLInputElement>("#network-status")!;
   const signMsgStatus = document.querySelector<HTMLInputElement>("#sign-msg-status")!;
   const transferFundsStatus = document.querySelector<HTMLInputElement>("#transfer-funds-status")!;
   const callContractStatus = document.querySelector<HTMLInputElement>("#call-contract-status")!;
 
   window.ethereum.on("chainChanged", function (chainId) {
-    networkSwitchStatus.value = `${parseInt(chainId, 16)}`;
+    // Coinbase Wallet returns chainid as Int while Metamask returns a Hex
+    const parsedChainId = Number.isInteger(chainId) ? parseInt(chainId).toString() : parseInt(chainId, 16).toString();
+    networkSwitchStatus.value = parsedChainId;
   });
 
   connectButton.addEventListener("click", async function () {

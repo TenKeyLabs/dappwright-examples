@@ -11,6 +11,7 @@ export const test = baseTest.extend<{
       wallet: "metamask",
       version: MetaMaskWallet.recommendedVersion,
       seed: "test test test test test test test test test test test junk", // Hardhat's default https://hardhat.org/hardhat-network/docs/reference#accounts
+      headless: false,
     });
 
     // Add Hardhat as a custom network
@@ -22,7 +23,6 @@ export const test = baseTest.extend<{
     });
 
     await use(context);
-    await context.close();
   },
 
   wallet: async ({ context }, use) => {
@@ -40,9 +40,11 @@ test("should be able to connect", async ({ wallet, page }) => {
   await page.click("#connect-button");
   await wallet.approve();
 
-  const connectStatus = await page.inputValue("#connect-status");
-  const networkSwitchStatus = await page.inputValue("#network-switch-status");
+  const connectStatus = page.getByTestId("connect-status");
+  expect(connectStatus).toHaveValue("connected");
 
-  expect(connectStatus).toEqual("connected");
-  expect(networkSwitchStatus).toEqual("31337");
+  await page.click("#switch-network-button");
+
+  const networkStatus = page.getByTestId("network-status");
+  expect(networkStatus).toHaveValue("31337");
 });

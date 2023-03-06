@@ -1,12 +1,13 @@
 import { expect } from "@playwright/test";
-import { test } from "./helpers/walletTest";
+import { test } from "./helpers/walletTest.js";
 
 test.beforeEach(async ({ page }) => {
   await page.goto("http://localhost:8080");
 });
 
 test("should be on the correct network", async ({ page }) => {
-  const networkSwitchStatus = await page.inputValue("#network-switch-status");
+  await page.click("#switch-network-button");
 
-  expect(networkSwitchStatus).toEqual("31337");
+  const networkStatus = page.getByTestId("network-status");
+  expect(networkStatus).toHaveValue("31337");
 });

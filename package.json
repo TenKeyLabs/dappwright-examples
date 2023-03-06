@@ -10,7 +10,9 @@
     "//": "Metamask locks chainIDs on port 8545 https://hardhat.org/hardhat-network/docs/metamask-issue",
     "chain": "hardhat node --port 8546",
     "test:single-test": "yarn build && playwright test -c tests/single-test/playwright.config.ts tests/single-test",
-    "test:multiple-files": "yarn build && playwright test -c tests/multiple-files/playwright.config.ts tests/multiple-files"
+    "test:multiple-files": "yarn build && playwright test -c tests/multiple-files/playwright.config.ts tests/multiple-files",
+    "test:multiple-wallets": "yarn build && playwright test -c tests/multiple-wallets/playwright.config.ts tests/multiple-wallets",
+    "test:all": "yarn test:single-test && yarn test:multiple-files && yarn test:multiple-wallets"
   },
   "dependencies": {
     "ethers": "^6.0.8"
