@@ -5,7 +5,7 @@ This is a test dApp that shows the different ways you can integrate [dAppwright]
 You can find the different conifurations in the [tests folder](https://github.com/TenKeyLabs/dappwright-examples/tree/main/tests) which includes examples setups for...
 
 - single test
-- multiplfe files
+- multiple files
 - multiple wallets
 
 ## Installation
