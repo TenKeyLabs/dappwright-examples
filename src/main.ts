@@ -17,7 +17,7 @@ document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
     <div>
       <button id="connect-button">Connect Wallet</button>
       <br>
-      <input disabled id="connect-status" datat-testid="connect-status"></input>
+      <input disabled id="connect-status" data-testid="connect-status"></input>
     </div>
     <div>
       <button id="switch-network-button">Switch Network</button>

@@ -9,5 +9,5 @@ test("should be on the correct network", async ({ page }) => {
   await page.click("#switch-network-button");
 
   const networkStatus = page.getByTestId("network-status");
-  expect(networkStatus).toHaveValue("31337");
+  expect(await networkStatus.inputValue()).toEqual("31337");
 });

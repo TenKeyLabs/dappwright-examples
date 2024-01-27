@@ -15,11 +15,12 @@
     "test:all": "yarn test:single-test && yarn test:multiple-files && yarn test:multiple-wallets"
   },
   "dependencies": {
-    "ethers": "^6.0.8"
+    "ethers": "^6.0.8",
+    "playwright-core": "^1.41.1"
   },
   "devDependencies": {
-    "@playwright/test": "1.30.0",
-    "@tenkeylabs/dappwright": "^2.2.6",
+    "@playwright/test": "^1.41.0",
+    "@tenkeylabs/dappwright": "^2.8.0",
     "hardhat": "^2.13.0",
     "typescript": "^4.9.3",
     "vite": "^4.1.5"
