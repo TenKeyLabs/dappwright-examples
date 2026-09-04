@@ -1,37 +1,48 @@
-import { BrowserContext, expect, test as baseTest } from "@playwright/test";
-import dappwright, { Dappwright, MetaMaskWallet, OfficialOptions } from "@tenkeylabs/dappwright";
+import { expect, test as baseTest } from "@playwright/test";
+import { bootstrap, Dappwright, getWallet, MetaMaskWallet, OfficialOptions } from "@tenkeylabs/dappwright";
+import { BrowserContext } from "playwright-core";
+import { addLocalNetwork } from "../helpers/localNetwork.js";
 
-export const test = baseTest.extend<{
-  context: BrowserContext;
-  wallet: Dappwright;
-}>({
-  context: async ({}, use, testInfo) => {
-    // Launch context with extension and playwright project params
-    const metadata = testInfo.project.metadata as OfficialOptions;
-    const [wallet, _, context] = await dappwright.bootstrap("", {
-      ...metadata,
-      headless: testInfo.project.use.headless,
-    });
+// Running the same spec against more than one wallet.
+//
+// Each wallet is a Playwright project carrying its options in `metadata` (see
+// playwright.config.ts), so the fixture below is wallet-agnostic - it just reads whichever
+// project it is running under.
+export const test = baseTest.extend<{ wallet: Dappwright }, { walletContext: BrowserContext }>({
+  walletContext: [
+    async ({}, use, testInfo) => {
+      const metadata = testInfo.project.metadata as OfficialOptions;
 
-    // Coinbase Wallet already this network set.
-    if (wallet instanceof MetaMaskWallet) {
-      // Add Hardhat as a custom network.
-      await wallet.addNetwork({
-        networkName: "Hardhat",
-        rpc: "http://localhost:8546",
-        chainId: 31337,
-        symbol: "ETH",
+      const [wallet, , context] = await bootstrap("", {
+        ...metadata,
+        headless: testInfo.project.use.headless,
       });
-    }
 
-    await use(context);
+      // Both projects import the same seed, so they drive the same address on the shared chain.
+      // That is fine here because nothing in this spec transacts. Once a test does send
+      // transactions, give each project its own derived account (`wallet.switchAccount`) so the
+      // two don't collide on a nonce.
+      //
+      // Note that switchAccount matches on the account's *displayed* name. Use a private seed
+      // if you rely on it - Coinbase resolves well-known addresses (such as the ones Hardhat's
+      // default mnemonic derives) to their registered .cb.id names rather than "Address N".
+
+      // Coinbase Wallet ships with the local network already configured; MetaMask needs it added.
+      if (wallet instanceof MetaMaskWallet) await addLocalNetwork(wallet);
+
+      await use(context);
+      await context.close();
+    },
+    { scope: "worker" },
+  ],
+
+  context: async ({ walletContext }, use) => {
+    await use(walletContext);
   },
 
-  wallet: async ({ context }, use, testInfo) => {
-    const walletId = testInfo.project.metadata.wallet;
-    const metamask = await dappwright.getWallet(walletId, context);
-
-    await use(metamask);
+  wallet: async ({ walletContext }, use, testInfo) => {
+    const { wallet } = testInfo.project.metadata as OfficialOptions;
+    await use(await getWallet(wallet, walletContext));
   },
 });
 
@@ -44,10 +55,10 @@ test("should be able to connect", async ({ wallet, page }) => {
   await wallet.approve();
 
   const connectStatus = page.getByTestId("connect-status");
-  expect(connectStatus).toHaveValue("connected");
+  await expect(connectStatus).toHaveValue("connected");
 
   await page.click("#switch-network-button");
 
   const networkStatus = page.getByTestId("network-status");
-  expect(networkStatus).toHaveValue("31337");
+  await expect(networkStatus).toHaveValue("31337");
 });

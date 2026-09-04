@@ -10,5 +10,5 @@ test("should be able to connect", async ({ wallet, page }) => {
   await wallet.approve();
 
   const connectStatus = page.getByTestId("connect-status");
-  expect(connectStatus).toHaveValue("connected");
+  await expect(connectStatus).toHaveValue("connected");
 });

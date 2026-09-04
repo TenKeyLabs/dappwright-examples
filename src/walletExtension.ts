@@ -1,10 +1,15 @@
-import { ethers } from "ethers";
-import { Eip1193Provider, Provider } from "ethers/types/providers";
+import { ethers, type Eip1193Provider } from "ethers";
 import counterContract from "./counterContract.json";
+
+// The injected provider is EIP-1193 plus the event emitter the wallets add on top of it.
+// ethers exports the former; `on` is declared here because it is not part of that interface.
+type InjectedProvider = Eip1193Provider & {
+  on: (event: string, listener: (...args: any[]) => void) => void;
+};
 
 declare global {
   interface Window {
-    ethereum: Eip1193Provider & Provider;
+    ethereum: InjectedProvider;
   }
 }
 
@@ -26,9 +31,11 @@ export async function init() {
   const transferFundsStatus = document.querySelector<HTMLInputElement>("#transfer-funds-status")!;
   const callContractStatus = document.querySelector<HTMLInputElement>("#call-contract-status")!;
 
-  window.ethereum.on("chainChanged", function (chainId) {
+  window.ethereum.on("chainChanged", function (chainId: string | number) {
     // Coinbase Wallet returns chainid as Int while Metamask returns a Hex
-    const parsedChainId = Number.isInteger(chainId) ? parseInt(chainId).toString() : parseInt(chainId, 16).toString();
+    const parsedChainId = Number.isInteger(chainId)
+      ? Number(chainId).toString()
+      : parseInt(String(chainId), 16).toString();
     networkSwitchStatus.value = parsedChainId;
   });
 

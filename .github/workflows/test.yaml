@@ -1,0 +1,64 @@
+name: Tests
+
+on:
+  pull_request:
+  push:
+    branches:
+      - main
+  # These examples are pinned against a published dAppwright release, so they can go stale even
+  # when nothing here changes. A weekly run surfaces that instead of leaving it to be discovered.
+  schedule:
+    - cron: '0 6 * * 1'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          cache: yarn
+          node-version: 22
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build
+        run: yarn build
+
+  examples:
+    runs-on: ubuntu-latest
+    container:
+      image: mcr.microsoft.com/playwright:v1.62.1-jammy
+    strategy:
+      fail-fast: false
+      matrix:
+        example: [single-test, multiple-files, multiple-wallets]
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js 22
+        uses: actions/setup-node@v4
+        with:
+          cache: yarn
+          node-version: 22
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Run ${{ matrix.example }}
+        run: yarn test:${{ matrix.example }}
+
+      - name: Upload report
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: playwright-report-${{ matrix.example }}
+          path: |
+            playwright-report/
+            test-results/
+          retention-days: 7

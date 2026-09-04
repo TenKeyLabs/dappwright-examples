@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# Playwright
+test-results
+playwright-report
+
+# Hardhat
+artifacts
+cache
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
