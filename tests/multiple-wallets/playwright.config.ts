@@ -12,13 +12,13 @@ export default defineConfig({
   retries: process.env.CI ? 2 : 1,
   webServer: [
     {
-      command: "yarn preview --port 8080",
+      command: "pnpm preview --port 8080",
       url: "http://localhost:8080",
       timeout: 120000,
       reuseExistingServer: true,
     },
     {
-      command: "yarn chain",
+      command: "pnpm chain",
       url: "http://localhost:8545",
       timeout: 120000,
       reuseExistingServer: true,

@@ -2,6 +2,7 @@
   "name": "dappwright-examples",
   "private": true,
   "version": "0.0.0",
+  "packageManager": "pnpm@12.3.4",
   "type": "module",
   "engines": {
     "node": ">=22"
@@ -12,11 +13,11 @@
     "preview": "vite preview",
     "chain": "hardhat node --network chain --hostname 0.0.0.0 --port 8545",
     "compile": "hardhat compile",
-    "deploy": "yarn compile && node scripts/deploy.js",
-    "test:single-test": "yarn build && playwright test -c tests/single-test/playwright.config.ts tests/single-test",
-    "test:multiple-files": "yarn build && playwright test -c tests/multiple-files/playwright.config.ts tests/multiple-files",
-    "test:multiple-wallets": "yarn build && playwright test -c tests/multiple-wallets/playwright.config.ts tests/multiple-wallets",
-    "test:all": "yarn test:single-test && yarn test:multiple-files && yarn test:multiple-wallets"
+    "deploy": "pnpm compile && node scripts/deploy.js",
+    "test:single-test": "pnpm build && playwright test -c tests/single-test/playwright.config.ts tests/single-test",
+    "test:multiple-files": "pnpm build && playwright test -c tests/multiple-files/playwright.config.ts tests/multiple-files",
+    "test:multiple-wallets": "pnpm build && playwright test -c tests/multiple-wallets/playwright.config.ts tests/multiple-wallets",
+    "test:all": "pnpm test:single-test && pnpm test:multiple-files && pnpm test:multiple-wallets"
   },
   "dependencies": {
     "ethers": "^6.17.0",

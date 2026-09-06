@@ -1,7 +1,7 @@
 // Deploys Counter to the local chain and writes the address + ABI the dApp imports.
 //
-// Run `yarn chain` in another terminal first. The dApp reads src/counterContract.json at build
-// time, so re-run `yarn build` (or `yarn dev`) afterwards to pick up a new address.
+// Run `pnpm chain` in another terminal first. The dApp reads src/counterContract.json at build
+// time, so re-run `pnpm build` (or `pnpm dev`) afterwards to pick up a new address.
 import { readFile, writeFile } from "fs/promises";
 import path from "path";
 import { fileURLToPath } from "url";

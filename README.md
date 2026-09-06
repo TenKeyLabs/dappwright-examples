@@ -20,7 +20,7 @@ Node 22 or newer (see `.nvmrc`), which is what dAppwright itself requires.
 git clone https://github.com/TenKeyLabs/dappwright-examples.git
 cd dappwright-examples
 nvm use
-yarn install
+pnpm install
 ```
 
 ## Running the examples
@@ -28,15 +28,15 @@ yarn install
 Run all of them:
 
 ```bash
-yarn test:all
+pnpm test:all
 ```
 
 Or one at a time:
 
 ```bash
-yarn test:single-test
-yarn test:multiple-files
-yarn test:multiple-wallets
+pnpm test:single-test
+pnpm test:multiple-files
+pnpm test:multiple-wallets
 ```
 
 Each config starts the dApp and a local chain for you via Playwright's `webServer`, so there is
@@ -45,8 +45,8 @@ nothing to launch first.
 ### Watching a run
 
 ```bash
-yarn test:single-test --headed
-yarn test:single-test --debug   # step through it
+pnpm test:single-test --headed
+pnpm test:single-test --debug   # step through it
 ```
 
 ## Testing against a local dAppwright checkout
@@ -54,12 +54,12 @@ yarn test:single-test --debug   # step through it
 To try these examples against unreleased dAppwright changes rather than the published package:
 
 ```bash
-cd ../dappwright && yarn build && yarn link
-cd ../dappwright-examples && yarn link @tenkeylabs/dappwright
+cd ../dappwright && pnpm build
+cd ../dappwright-examples && pnpm link ../dappwright
 ```
 
 To go back to the published version:
 
 ```bash
-yarn unlink @tenkeylabs/dappwright && yarn install --force
+pnpm unlink @tenkeylabs/dappwright && pnpm install
 ```
