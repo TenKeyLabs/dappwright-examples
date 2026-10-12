@@ -1,3 +1,5 @@
 # esbuild's postinstall fetches its platform binary, which Vite needs to build.
 allowBuilds:
   esbuild: true
+minimumReleaseAgeExclude:
+  - '@tenkeylabs/dappwright@2.13.14'

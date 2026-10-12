@@ -8,12 +8,14 @@ export default defineConfig({
   webServer: [
     {
       command: "pnpm preview --port 8080",
+      cwd: "../..",
       url: "http://localhost:8080",
       timeout: 120000,
       reuseExistingServer: true,
     },
     {
       command: "pnpm chain",
+      cwd: "../..",
       url: "http://localhost:8545",
       timeout: 120000,
       reuseExistingServer: true,

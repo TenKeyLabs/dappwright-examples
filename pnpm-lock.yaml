@@ -120,8 +120,8 @@ importers:
         specifier: ^1.62.1
         version: 1.62.1
       '@tenkeylabs/dappwright':
-        specifier: ^2.13.10
-        version: 2.13.12(playwright-core@1.62.1)
+        specifier: ^2.13.14
+        version: 2.13.14(playwright-core@1.62.1)
       hardhat:
         specifier: ^3.12.0
         version: 3.15.0
@@ -540,8 +540,8 @@ packages:
   '@streamparser/json@0.0.22':
     resolution: {integrity: sha512-b6gTSBjJ8G8SuO3Gbbj+zXbVx8NSs1EbpbMKpzGLWMdkR+98McH9bEjSz3+0mPJf68c5nxa3CrJHp5EQNXM6zQ==}
 
-  '@tenkeylabs/dappwright@2.13.12':
-    resolution: {integrity: sha512-1ZxkUsKCrjpKANXls3aSU54tD2l1Ja16mrYHuMgUBHyBRUOrgV4vlaq1X8CUgwWb1lRgxL0CIno1+nGIYX4GDw==}
+  '@tenkeylabs/dappwright@2.13.14':
+    resolution: {integrity: sha512-I4n3MAmBbXddo4CIhnw+fFXNIC7hRKNW2Y8bToJ+yrMv/qtflsvS5onUanLXFkXCnnphPjtjiNw/5tQJnHgU/A==}
     engines: {node: '>=22'}
     peerDependencies:
       playwright-core: '>1.0'
@@ -1124,7 +1124,7 @@ snapshots:
 
   '@streamparser/json@0.0.22': {}
 
-  '@tenkeylabs/dappwright@2.13.12(playwright-core@1.62.1)':
+  '@tenkeylabs/dappwright@2.13.14(playwright-core@1.62.1)':
     dependencies:
       node-stream-zip: 1.16.0
       playwright-core: 1.62.1
