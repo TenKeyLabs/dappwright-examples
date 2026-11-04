@@ -785,8 +785,8 @@ packages:
   undici-types@6.19.8:
     resolution: {integrity: sha512-ve2KP6f/JnbPBFyobGHuerC9g1FYGn/F8n1LWTwNxCEzd6IfqTwUQcNXgEtmmQ6DlRrC1hrSrBnCZPokRrDHjw==}
 
-  undici@6.28.0:
-    resolution: {integrity: sha512-LIY910g9TI13YS95lrMFrs8Rm/u/irgHeTWoKCoteeJ04CUJ92eEfj0rVn+7VKMPBpUPiUoBKfhNyLI23EE/KA==}
+  undici@6.29.1:
+    resolution: {integrity: sha512-EvRlUt/QqAEvXdQeRMYUfwOQsfzpDztykrG2owGEE/rBOBoYv9uF39ZzsNDh4lTFHhTr2XOZjKkYgueD12ZmGA==}
     engines: {node: '>=18.17'}
 
   vite@8.2.2:
@@ -1002,7 +1002,7 @@ snapshots:
       fast-equals: 6.0.3
       json-stream-stringify: 3.1.7
       rfdc: 1.4.1
-      undici: 6.28.0
+      undici: 6.29.1
 
   '@nomicfoundation/hardhat-vendored@3.0.4': {}
 
@@ -1370,7 +1370,7 @@ snapshots:
 
   undici-types@6.19.8: {}
 
-  undici@6.28.0: {}
+  undici@6.29.1: {}
 
   vite@8.2.2(esbuild@0.28.2)(tsx@4.23.13):
     dependencies:
