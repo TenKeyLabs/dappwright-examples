@@ -35,7 +35,7 @@ jobs:
   examples:
     runs-on: ubuntu-latest
     container:
-      image: mcr.microsoft.com/playwright:v1.62.1-jammy
+      image: mcr.microsoft.com/playwright:v1.64.1-jammy
     strategy:
       fail-fast: false
       matrix:
